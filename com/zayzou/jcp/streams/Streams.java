@@ -2,16 +2,47 @@ package com.zayzou.jcp.streams;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.List;
-import java.util.stream.DoubleStream;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Streams {
 
     public static void main(String[] args) {
+        finalMethodOfStream();
+    }
 
-/*
+
+    public static void finalMethodOfStream() {
+        int[] tab = {1, 4, 5, 6, 3, 1, 24, -4, 6, 3};
+
+        OptionalInt max = IntStream.of(tab).max();
+        if (max.isPresent()) {
+            System.out.println("Max avec isPresent " + max.getAsInt());
+        }
+        System.out.println("Max avec orElse  " + max.orElse(0));
+        max.ifPresent(x -> System.out.println("Max avec ifPresent " + x));
+
+        int sum = IntStream.of(tab).filter(e -> e > 0).sum();
+        System.out.println("Somme des positifs = " + sum);
+        OptionalDouble average = IntStream.of(tab).filter(e -> e > 0).average();
+        System.out.println("Moyenne des positifs = " + average.getAsDouble());
+
+    }
+
+    public static void intermediateMethodOfStream() {
+        Stream.of(1, 4, 5, 6, 3, 1, 24, -4, 6, 3)
+                .skip(4)
+                .map(e -> e + 1)
+                .sorted()
+                .distinct()
+                .peek(e -> System.out.println("Mapped elements " + e))
+                .forEach(System.out::println);
+    }
+
+    public static void creationOfStream() {
+        /*
         //source d'un Stream
 
         //à partir d'une collection :
@@ -58,7 +89,5 @@ public class Streams {
         } catch (Exception e) {
 
         }
-
-
     }
 }
